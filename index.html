@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>DPMODS Cyber Controller</title>
+    <title>DPMODS VIP Controller</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -30,10 +30,11 @@
 
     <style>
         :root {
-            /* CYBERPUNK NEON PALETTE */
             --cyan: #00E5FF;
             --cyan-dim: rgba(0, 229, 255, 0.1);
             --cyan-glow: 0 0 15px rgba(0, 229, 255, 0.4);
+            --purple: #9D00FF;
+            --purple-dim: rgba(157, 0, 255, 0.15);
             
             --bg-dark: #070709;
             --bg-card: #101114;
@@ -46,11 +47,11 @@
             --text-muted: #8b92a5;
             
             --danger: #ff4757;
-            --danger-dim: rgba(255, 71, 87, 0.1);
+            --danger-dim: rgba(255, 71, 87, 0.12);
             --success: #2ed573;
             --success-dim: rgba(46, 213, 115, 0.15);
             --warning: #ffa502;
-            --warning-dim: rgba(255, 165, 2, 0.1);
+            --warning-dim: rgba(255, 165, 2, 0.12);
             
             --nav-height: 75px;
             color-scheme: dark;
@@ -72,9 +73,9 @@
         /* --- DYNAMIC ISLAND SNACKBAR --- */
         #dynamic-island {
             position: fixed; top: 15px; left: 50%; transform: translateX(-50%) scale(0.85);
-            background: #1e1e24; color: #fff; border-radius: 12px; padding: 14px 24px;
+            background: #1e1e24; color: #fff; border-radius: 12px; padding: 12px 22px;
             display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-weight: 700; font-size: 0.95rem; letter-spacing: 0.5px; 
+            font-weight: 700; font-size: 0.9rem; letter-spacing: 0.5px; 
             opacity: 0; visibility: hidden; z-index: 99999; pointer-events: none;
             transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 1px rgba(255,255,255,0.1);
@@ -85,189 +86,185 @@
         /* --- LOGIN SCREEN --- */
         #login-screen { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; text-align: center; z-index: 500; background: var(--bg-dark); transition: opacity 0.4s ease;}
         .login-wrapper { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 350px; }
-        .logo-icon { font-size: 4.5rem; color: var(--cyan); margin-bottom: 15px; filter: drop-shadow(var(--cyan-glow)); }
-        #login-screen h1 { font-size: 2.2rem; font-weight: 900; line-height: 1.1; margin-bottom: 30px; letter-spacing: -0.5px; display: flex; gap: 6px;}
+        .logo-icon { font-size: 4.2rem; color: var(--cyan); margin-bottom: 12px; filter: drop-shadow(var(--cyan-glow)); }
+        #login-screen h1 { font-size: 2rem; font-weight: 900; line-height: 1.1; margin-bottom: 26px; letter-spacing: -0.5px; }
 
-        .login-card { background: var(--bg-card); border-radius: 20px; padding: 24px; border: 1px solid var(--border-light); width: 100%; margin-bottom: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);}
+        .login-card { background: var(--bg-card); border-radius: 20px; padding: 22px; border: 1px solid var(--border-light); width: 100%; margin-bottom: 15px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);}
         
-        .input-group { margin-bottom: 18px; text-align: start; width: 100%; }
-        .input-group label { display: block; font-size: 0.65rem; color: var(--text-muted); font-weight: 800; margin-bottom: 8px; padding: 0 4px; text-transform: uppercase; letter-spacing: 1px;}
-        .input-group input, .input-group textarea { width: 100%; background: #070709; border: 1px solid var(--border-light); border-radius: 12px; padding: 15px 16px; color: #fff; font-size: 0.95rem; font-weight: 600; outline: none; transition: 0.2s;}
+        .input-group { margin-bottom: 16px; text-align: start; width: 100%; }
+        .input-group label { display: block; font-size: 0.65rem; color: var(--text-muted); font-weight: 800; margin-bottom: 6px; padding: 0 4px; text-transform: uppercase; letter-spacing: 1px;}
+        .input-group input, .input-group textarea { width: 100%; background: #070709; border: 1px solid var(--border-light); border-radius: 12px; padding: 14px 16px; color: #fff; font-size: 0.92rem; font-weight: 600; outline: none; transition: 0.2s;}
         .input-group input:focus, .input-group textarea:focus { border-color: var(--cyan); box-shadow: 0 0 8px rgba(0,229,255,0.2); }
         .input-row { display: flex; gap: 12px; }
         .input-row .input-group { flex: 1; margin-bottom: 10px; }
 
-        .btn-primary { width: 100%; padding: 16px; border-radius: 12px; border: none; font-size: 1rem; font-weight: 900; cursor: pointer; transition: 0.2s; background: var(--cyan); color: #000; box-shadow: var(--cyan-glow); text-transform: uppercase; letter-spacing: 1px;}
+        .btn-primary { width: 100%; padding: 16px; border-radius: 12px; border: none; font-size: 0.95rem; font-weight: 900; cursor: pointer; transition: 0.2s; background: var(--cyan); color: #000; box-shadow: var(--cyan-glow); text-transform: uppercase; letter-spacing: 1px;}
         .btn-primary:active { transform: scale(0.96); opacity: 0.8;}
 
         .saved-url-item { background: var(--bg-card); border: 1px solid var(--border-light); padding: 12px 16px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: 0.2s;}
         .saved-url-item:active { transform: scale(0.98); background: #1a1a1f; }
 
         /* --- HEADER --- */
-        .page-header { padding: 40px 20px 20px; position: sticky; top: 0; background: rgba(10,10,12,0.9); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 50; border-bottom: 1px solid var(--border-light); }
-        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .app-main-title { font-size: 2.3rem; font-weight: 900; letter-spacing: -1px; color: #fff; text-transform: uppercase; display: flex; gap: 4px; align-items: center;}
+        .page-header { padding: 38px 20px 16px; position: sticky; top: 0; background: rgba(10,10,12,0.92); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 50; border-bottom: 1px solid var(--border-light); }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .app-main-title { font-size: 2.1rem; font-weight: 900; letter-spacing: -1px; color: #fff; text-transform: uppercase; display: flex; gap: 6px; align-items: center;}
         
         .secure-badge { background: var(--success-dim); border: 1px solid rgba(46, 213, 115, 0.4); color: var(--success); padding: 5px 12px; border-radius: 20px; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; gap: 6px; letter-spacing: 1px; flex-shrink: 0;}
         .secure-dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 6px var(--success); }
 
         .header-sub { display: flex; justify-content: space-between; align-items: center; }
-        .sync-text { font-size: 0.75rem; color: var(--cyan); font-weight: 800; letter-spacing: 1px; text-transform: uppercase;}
+        .sync-text { font-size: 0.72rem; color: var(--cyan); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 8px;}
         
-        .disconnect-btn { background: transparent; border: 1px solid rgba(255, 71, 87, 0.4); color: var(--danger); padding: 6px 14px; border-radius: 14px; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s;}
+        .disconnect-btn { background: transparent; border: 1px solid rgba(255, 71, 87, 0.4); color: var(--danger); padding: 5px 12px; border-radius: 12px; font-size: 0.65rem; font-weight: 800; display: flex; align-items: center; gap: 6px; cursor: pointer; transition: 0.2s;}
         .disconnect-btn:active { background: var(--danger-dim); }
 
-        /* --- SLEEK STATS CARDS --- */
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 15px 20px; }
-        .stat-card { background: rgba(255,255,255,0.01); border: 1px solid var(--border-light); border-radius: 12px; padding: 14px 6px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.2s;}
+        /* --- SLEEK COMPACT STATS CARDS --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 14px 20px 10px; }
+        .stat-card { background: rgba(255,255,255,0.015); border: 1px solid var(--border-light); border-radius: 12px; padding: 10px 6px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: 0.2s;}
         .stat-card.blue { border-color: rgba(59, 130, 246, 0.35); }
         .stat-card.cyan { border-color: rgba(0, 229, 255, 0.35); }
         .stat-card.orange { border-color: rgba(245, 158, 11, 0.35); }
         
-        .stat-icon { font-size: 1.15rem; margin-bottom: 6px; }
+        .stat-icon { font-size: 1rem; margin-bottom: 4px; }
         .stat-card.blue .stat-icon { color: #3b82f6; }
         .stat-card.cyan .stat-icon { color: var(--cyan); }
         .stat-card.orange .stat-icon { color: #f59e0b; }
 
-        .stat-num { font-size: 1.5rem; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 4px; font-family: 'JetBrains Mono', monospace;}
-        .stat-label { font-size: 0.55rem; color: var(--text-muted); font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;}
+        .stat-num { font-size: 1.35rem; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 3px; font-family: 'JetBrains Mono', monospace;}
+        .stat-label { font-size: 0.52rem; color: var(--text-muted); font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;}
 
         /* --- SEARCH & FAB INLINE --- */
-        .search-fab-container { display: flex; gap: 12px; padding: 5px 20px 15px; align-items: center;}
+        .search-fab-container { display: flex; gap: 10px; padding: 4px 20px 12px; align-items: center;}
         .search-box { flex: 1; position: relative; }
-        .search-box i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--cyan); font-size: 0.95rem; }
-        .search-input { width: 100%; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 20px; padding: 14px 16px 14px 40px; color: #fff; font-size: 0.9rem; font-weight: 600; outline: none; transition: 0.2s;}
+        .search-box i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--cyan); font-size: 0.9rem; }
+        .search-input { width: 100%; background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 18px; padding: 13px 16px 13px 40px; color: #fff; font-size: 0.88rem; font-weight: 600; outline: none; transition: 0.2s;}
         .search-input:focus { border-color: var(--cyan); }
         
-        .fab-inline { width: 50px; height: 50px; border-radius: 25px; background: var(--cyan); color: #000; border: none; font-size: 1.4rem; display: flex; justify-content: center; align-items: center; box-shadow: var(--cyan-glow); cursor: pointer; transition: 0.2s; flex-shrink: 0;}
+        .fab-inline { width: 46px; height: 46px; border-radius: 23px; background: var(--cyan); color: #000; border: none; font-size: 1.3rem; display: flex; justify-content: center; align-items: center; box-shadow: var(--cyan-glow); cursor: pointer; transition: 0.2s; flex-shrink: 0;}
         .fab-inline:active { transform: scale(0.9); }
 
         /* --- FILTERS --- */
-        .filter-chips-row { display: flex; gap: 8px; overflow-x: auto; padding: 0 20px 15px; scrollbar-width: none; }
-        .filter-chip { background: transparent; border: 1px solid var(--border-light); color: var(--text-muted); padding: 6px 16px; border-radius: 16px; font-size: 0.7rem; font-weight: 800; cursor: pointer; white-space: nowrap; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px;}
+        .filter-chips-row { display: flex; gap: 8px; overflow-x: auto; padding: 0 20px 12px; scrollbar-width: none; }
+        .filter-chip { background: transparent; border: 1px solid var(--border-light); color: var(--text-muted); padding: 6px 14px; border-radius: 14px; font-size: 0.68rem; font-weight: 800; cursor: pointer; white-space: nowrap; transition: 0.2s; text-transform: uppercase; letter-spacing: 0.8px;}
         .filter-chip.active { border-color: var(--cyan); color: var(--cyan); background: var(--cyan-dim);}
 
         /* --- BULK ACTIONS --- */
-        .bulk-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 20px 15px; }
-        .bulk-btn { background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 10px; padding: 12px 6px; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; transition: 0.2s; flex-direction: row;}
+        .bulk-actions-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 0 20px 14px; }
+        .bulk-btn { background: rgba(255,255,255,0.02); border: 1px solid var(--border-light); border-radius: 10px; padding: 10px 6px; display: flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; transition: 0.2s;}
         .bulk-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.05); }
-        .bulk-btn i { font-size: 1rem; }
-        .bulk-btn span { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; text-align: left; line-height: 1.2; letter-spacing: 0.5px;}
+        .bulk-btn i { font-size: 0.9rem; }
+        .bulk-btn span { font-size: 0.58rem; font-weight: 800; text-transform: uppercase; text-align: left; line-height: 1.15; letter-spacing: 0.4px;}
         
         .btn-del-unused { color: var(--danger); border-color: rgba(255, 71, 87, 0.3); }
         .btn-del-exp { color: var(--danger); border-color: rgba(255, 71, 87, 0.3); }
         .btn-unbind { color: var(--warning); border-color: rgba(255, 165, 2, 0.3); }
 
-        /* --- ACCORDION LIST CARDS --- */
-        .content-area { padding: 0 20px; display: flex; flex-direction: column; gap: 12px; }
+        /* --- ACCORDION LIST CARDS (PERFECT ALIGNMENT, NO OVERLAP) --- */
+        .content-area { padding: 0 20px; display: flex; flex-direction: column; gap: 10px; }
         
-        .acc-card { background: var(--bg-card); border-radius: 16px; border: 1px solid var(--border-light); overflow: hidden; transition: 0.3s ease; }
+        .acc-card { background: var(--bg-card); border-radius: 14px; border: 1px solid var(--border-light); overflow: hidden; transition: 0.25s ease; }
         
-        .acc-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; cursor: pointer; user-select: none; gap: 10px;}
+        .acc-header { display: flex; justify-content: space-between; align-items: center; padding: 13px 14px; cursor: pointer; user-select: none; gap: 8px;}
         .acc-header-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
-        .acc-chevron { color: var(--text-muted); font-size: 0.8rem; transition: transform 0.3s; flex-shrink: 0;}
-        .acc-card.expanded .acc-chevron { transform: rotate(180deg); }
+        .acc-chevron { color: var(--text-muted); font-size: 0.75rem; transition: transform 0.3s; flex-shrink: 0;}
+        .acc-card.expanded .acc-chevron { transform: rotate(180deg); color: var(--cyan); }
         
-        .key-icon { color: var(--cyan); font-size: 1.1rem; flex-shrink: 0;}
+        .key-icon { color: var(--cyan); font-size: 1.05rem; flex-shrink: 0;}
         
         .key-title-wrapper { display: flex; flex-direction: column; flex: 1; min-width: 0; justify-content: center; }
-        .key-title-row { display: flex; align-items: center; gap: 8px; }
-        .key-title { font-size: 0.95rem; font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .key-title { font-size: 0.9rem; font-weight: 800; color: #fff; font-family: 'JetBrains Mono', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .key-remark { font-size: 0.62rem; color: var(--cyan); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 700; opacity: 0.85;}
         
-        .copy-badge { flex-shrink: 0; background: rgba(255,255,255,0.08); color: var(--text-muted); font-size: 0.55rem; padding: 4px 8px; border-radius: 6px; font-weight: 800; cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.05);}
-        .copy-badge:active { background: #fff; color: #000; }
+        .acc-header-right { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .copy-badge { background: rgba(255,255,255,0.06); color: var(--text-muted); font-size: 0.55rem; padding: 4px 8px; border-radius: 6px; font-weight: 800; cursor: pointer; transition: 0.2s; border: 1px solid rgba(255,255,255,0.06);}
+        .copy-badge:active { background: var(--cyan); color: #000; }
 
-        .status-badge { flex-shrink: 0; display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 10px; font-size: 0.6rem; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; border: 1px solid transparent;}
-        .status-badge.active { border-color: rgba(46, 213, 115, 0.3); color: var(--success); }
-        .status-badge.expired { border-color: rgba(255, 71, 87, 0.3); color: var(--danger); }
-        .status-badge.banned { border-color: rgba(139, 0, 0, 0.4); color: var(--danger); }
-        .status-badge.unused { border-color: rgba(255,255,255,0.1); color: var(--text-muted); }
+        .status-badge { display: flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 8px; font-size: 0.58rem; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; border: 1px solid transparent;}
+        .status-badge.active { background: var(--success-dim); border-color: rgba(46, 213, 115, 0.3); color: var(--success); }
+        .status-badge.expired { background: var(--warning-dim); border-color: rgba(255, 165, 2, 0.3); color: var(--warning); }
+        .status-badge.banned { background: var(--danger-dim); border-color: rgba(255, 71, 87, 0.4); color: var(--danger); }
+        .status-badge.unused { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.1); color: var(--text-muted); }
         .badge-dot { width: 5px; height: 5px; border-radius: 50%; }
 
-        .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: rgba(0,0,0,0.3); }
-        .acc-content { padding: 0 16px 16px; display: flex; flex-direction: column; gap: 14px; border-top: 1px solid rgba(255,255,255,0.03); margin-top: 5px; padding-top: 16px;}
+        .acc-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; background: rgba(0,0,0,0.35); }
+        .acc-content { padding: 14px; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid rgba(255,255,255,0.04); }
         
-        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .info-box { display: flex; flex-direction: column; gap: 4px; }
-        .info-lbl { font-size: 0.6rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;}
-        .info-val { font-size: 0.85rem; color: #fff; font-weight: 700; font-family: 'JetBrains Mono', monospace;}
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; background: rgba(255,255,255,0.015); padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03);}
+        .info-box { display: flex; flex-direction: column; gap: 3px; }
+        .info-lbl { font-size: 0.58rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;}
+        .info-val { font-size: 0.8rem; color: #fff; font-weight: 700; font-family: 'JetBrains Mono', monospace;}
 
-        .dev-list { background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.03); border-radius: 12px; padding: 12px; }
-        .dev-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.8rem; }
+        .dev-list { background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.04); border-radius: 10px; padding: 10px 12px; }
+        .dev-list-header { font-size: 0.6rem; color: var(--text-muted); font-weight: 800; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px; display: flex; justify-content: space-between;}
+        .dev-item { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.78rem; gap: 8px;}
         .dev-item:last-child { border-bottom: none; padding-bottom: 0; }
-        .dev-hwid { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-weight: 700; }
+        .dev-hwid { color: var(--cyan); font-family: 'JetBrains Mono', monospace; font-weight: 700; cursor: pointer; word-break: break-all;}
+        .dev-model-tag { background: rgba(157, 0, 255, 0.15); border: 1px solid rgba(157, 0, 255, 0.35); color: #d896ff; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; flex-shrink: 0;}
         
-        .action-row { display: flex; gap: 8px; margin-top: 4px;}
-        .action-btn { flex: 1; padding: 10px; border-radius: 10px; font-size: 0.75rem; font-weight: 800; cursor: pointer; border: none; display: flex; justify-content: center; align-items: center; gap: 8px; transition: 0.2s; text-transform: uppercase; letter-spacing: 0.5px;}
+        .action-row { display: flex; gap: 8px; margin-top: 2px;}
+        .action-btn { flex: 1; padding: 10px; border-radius: 9px; font-size: 0.72rem; font-weight: 800; cursor: pointer; border: none; display: flex; justify-content: center; align-items: center; gap: 6px; transition: 0.2s; text-transform: uppercase; letter-spacing: 0.5px;}
         .action-btn:active { transform: scale(0.95); }
-        .btn-edit { background: rgba(255,255,255,0.08); color: #fff; }
-        .btn-unbind-single { background: var(--warning-dim); color: var(--warning); border: 1px solid rgba(255,165,2,0.2); }
-        .btn-delete { background: var(--danger-dim); color: var(--danger); border: 1px solid rgba(255,71,87,0.2); }
+        .btn-edit { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.08);}
+        .btn-unbind-single { background: var(--warning-dim); color: var(--warning); border: 1px solid rgba(255,165,2,0.25); }
+        .btn-delete { background: var(--danger-dim); color: var(--danger); border: 1px solid rgba(255,71,87,0.25); }
 
         /* SQUARE CHECKBOX FOR SETTINGS & MODALS */
         .sq-checkbox {
             appearance: none; width: 22px; height: 22px; background: #16161a;
-            border: 2px solid rgba(255,255,255,0.2); border-radius: 6px; cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.25); border-radius: 6px; cursor: pointer;
             position: relative; transition: 0.2s; outline: none; flex-shrink: 0;
         }
-        .sq-checkbox:checked { background: var(--cyan); border-color: var(--cyan); }
+        .sq-checkbox:checked { background: var(--cyan); border-color: var(--cyan); box-shadow: 0 0 8px rgba(0,229,255,0.3);}
         .sq-checkbox:checked::after {
             content: ''; position: absolute; left: 6px; top: 1px;
             width: 5px; height: 11px; border: solid #000;
-            border-width: 0 2px 2px 0; transform: rotate(45deg);
+            border-width: 0 2.5px 2.5px 0; transform: rotate(45deg);
         }
 
-        .load-more-btn { background: rgba(0, 229, 255, 0.05); color: var(--cyan); border: 1px solid var(--border-cyan); width: 100%; padding: 14px; border-radius: 12px; margin-top: 5px; font-weight: 800; font-size: 0.85rem; cursor: pointer; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px;}
+        .load-more-btn { background: rgba(0, 229, 255, 0.05); color: var(--cyan); border: 1px solid var(--border-cyan); width: 100%; padding: 13px; border-radius: 12px; margin-top: 8px; font-weight: 800; font-size: 0.8rem; cursor: pointer; transition: 0.2s; text-transform: uppercase; letter-spacing: 1px;}
         .load-more-btn:active { transform: scale(0.98); background: var(--cyan-dim); }
 
         /* --- BOTTOM NAV --- */
         .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; height: var(--nav-height); background: rgba(10,10,12,0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--border-light); display: flex; justify-content: space-around; align-items: center; z-index: 1000; padding-bottom: env(safe-area-inset-bottom); }
         .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-size: 0.6rem; font-weight: 800; cursor: pointer; transition: 0.3s; flex: 1; height: 100%; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;}
-        .nav-icon-wrap { width: 40px; height: 28px; border-radius: 14px; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; transition: 0.3s; margin-bottom: 2px;}
-        .nav-item.active .nav-icon-wrap { color: var(--cyan); }
+        .nav-icon-wrap { width: 42px; height: 28px; border-radius: 14px; display: flex; justify-content: center; align-items: center; font-size: 1.15rem; transition: 0.3s; margin-bottom: 2px;}
+        .nav-item.active .nav-icon-wrap { background: var(--cyan-dim); color: var(--cyan); }
         .nav-item.active span { color: var(--cyan); }
 
         .view { display: none; }
-        .view.active { display: block; animation: smoothFadeIn 0.3s ease forwards; }
-        @keyframes smoothFadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
+        .view.active { display: block; animation: smoothFadeIn 0.25s ease forwards; }
+        @keyframes smoothFadeIn { 0% { opacity: 0; transform: translateY(8px); } 100% { opacity: 1; transform: translateY(0); } }
 
-        /* --- SQUARE MODALS --- */
+        /* --- MODALS --- */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 2000; opacity: 0; visibility: hidden; transition: 0.3s ease; pointer-events: none; display: flex; justify-content: center; align-items: flex-end;}
         .modal-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
-        .modal-card { background: var(--bg-card); width: 100%; max-width: 600px; border-radius: 24px 24px 0 0; padding: 22px 24px 40px; transform: translateY(100%); transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1); border-top: 1px solid var(--border-light); box-shadow: 0 -10px 50px rgba(0,0,0,0.8); max-height: 85vh; overflow-y: auto;}
+        .modal-card { background: var(--bg-card); width: 100%; max-width: 600px; border-radius: 24px 24px 0 0; padding: 22px 22px 36px; transform: translateY(100%); transition: 0.35s cubic-bezier(0.175, 0.885, 0.32, 1); border-top: 1px solid var(--border-cyan); box-shadow: 0 -10px 40px rgba(0,229,255,0.1); max-height: 88vh; overflow-y: auto;}
         .modal-overlay.active .modal-card { transform: translateY(0); }
-        .modal-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: -8px auto 20px; }
+        .modal-handle { width: 40px; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin: -6px auto 18px; }
         
-        .modal-btn-cancel { flex: 1; background: #1a1b1f; color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s;}
+        .modal-btn-cancel { flex: 1; background: #1a1b1f; color: #fff; border: 1px solid rgba(255,255,255,0.1); padding: 14px; border-radius: 12px; font-weight: 800; font-size: 0.88rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s;}
         .modal-btn-cancel:active { background: #222; }
-        .modal-btn-action { flex: 2; background: var(--cyan); color: #000; border: none; padding: 14px; border-radius: 12px; font-weight: 900; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s;}
-        .modal-btn-action.red { background: var(--danger); color: #fff;}
+        .modal-btn-action { flex: 2; background: var(--cyan); color: #000; border: none; padding: 14px; border-radius: 12px; font-weight: 900; font-size: 0.88rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.2s; box-shadow: var(--cyan-glow);}
         .modal-btn-action:active { transform: scale(0.97); }
 
-        .sq-btn { width: 48px; height: 48px; border-radius: 12px; background: #1a1b1f; border: 1px solid var(--border-light); display: flex; justify-content: center; align-items: center; cursor: pointer; flex-shrink: 0; transition: 0.2s;}
-        .sq-btn:active { background: #222; }
+        .sq-btn { width: 46px; height: 46px; border-radius: 12px; background: #1a1b1f; border: 1px solid var(--border-light); display: flex; justify-content: center; align-items: center; cursor: pointer; flex-shrink: 0; transition: 0.2s;}
+        .sq-btn:active { background: #25262c; transform: scale(0.94);}
 
-        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-weight: 800; font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;}
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); font-weight: 800; font-size: 0.85rem; letter-spacing: 1px; text-transform: uppercase;}
 
-        /* --- EDITABLE LIVE GUI PREVIEW --- */
-        #pv-container { padding-top: 15px; margin-bottom: 20px; }
-        #preview-card { background: #000; border-radius: 24px; padding: 30px 20px; position: relative; color: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.5); text-align: center; border: 1px solid rgba(255,255,255,0.05); overflow: hidden;}
-        
-        .pv-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 15px; width: 100%;}
-        
-        [contenteditable="true"] { outline: none; transition: background 0.2s, border-radius 0.2s; }
-        [contenteditable="true"]:focus { background: rgba(255,255,255,0.05); border-radius: 6px; box-shadow: 0 0 0 2px rgba(168,85,247,0.5); cursor: text;}
+        /* --- LIVE GUI PREVIEW --- */
+        #pv-container { margin-bottom: 18px; }
+        #preview-card { background: #0c0d10; border-radius: 20px; padding: 24px 18px; position: relative; color: #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.6); text-align: center; border: 1px solid rgba(157, 0, 255, 0.25); overflow: hidden;}
+        #pv-banner { width: 100%; max-height: 110px; object-fit: cover; border-radius: 12px; margin-bottom: 14px; display: none; border: 1px solid var(--border-light);}
+        .pv-title-box { font-size: 1.45rem; font-weight: 900; line-height: 1.25; margin-bottom: 8px; color: #fff; }
+        .pv-title-box small { font-size: 0.7rem; letter-spacing: 2px; color: var(--text-muted); font-weight: 700; display: block; margin-top: 4px;}
+        .pv-subtitle-box { font-size: 0.75rem; color: var(--cyan); font-weight: 700; margin-bottom: 16px; background: rgba(0,229,255,0.06); padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(0,229,255,0.15);}
+        .pv-emg-box { background: rgba(255, 71, 87, 0.08); padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(255, 71, 87, 0.25); width: 100%; text-align: left; margin-bottom: 14px;}
+        .pv-btn-row { display: flex; gap: 10px; width: 100%; }
+        .pv-btn { flex: 1; padding: 12px; border-radius: 10px; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid var(--border-light); background: #16171d; color: #fff;}
+        .pv-btn.primary { background: var(--purple); border-color: var(--purple); color: #fff; }
 
-        .pv-title-row { font-size: 1.8rem; font-weight: 900; margin-bottom: 5px; width: 100%; color: #fff; line-height: 1.3;}
-        
-        #pv-subtitle { font-size: 0.85rem; color: var(--cyan); font-weight: 700; cursor: text; letter-spacing: 0.5px; text-shadow: var(--cyan-glow);}
-
-        .pv-input-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; width: 100%; text-align: left; }
-        
-        .pv-btn-sm { background: #fff; color: #000; border-radius: 8px; padding: 6px 12px; font-weight: 800; font-size: 0.7rem; cursor: text; border: none;}
-        .pv-main-btn { background: var(--cyan); color: #000; box-shadow: var(--cyan-glow); width: 100%; border: none; padding: 16px; border-radius: 14px; font-weight: 900; font-size: 1rem; cursor: text; letter-spacing: 1px; margin-top: 10px;}
-        
-        .pv-emg-box { background: var(--bg-card-sub); padding: 16px; border-radius: 16px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.05); width: 100%; text-align: left;}
+        .ios-card { background: var(--bg-card); border-radius: 18px; padding: 18px; border: 1px solid var(--border-light); margin-bottom: 16px; }
     </style>
 </head>
 <body dir="ltr">
@@ -278,25 +275,25 @@
     <!-- FIREBASE LOGIN SCREEN -->
     <div id="login-screen">
         <div class="login-wrapper">
-            <div class="logo-icon"><i class="fas fa-fingerprint"></i></div>
-            <h1>DPMODS PANEL</h1>
+            <div class="logo-icon"><i class="fas fa-shield-halved"></i></div>
+            <h1>DPMODS <span style="color:var(--cyan);">VIP</span></h1>
             
             <div class="login-card">
                 <div class="input-group">
-                    <label>Firebase URL</label>
-                    <input type="text" id="auth-url" placeholder="https://database.firebaseio.com">
+                    <label>Firebase Database URL</label>
+                    <input type="text" id="auth-url" placeholder="https://your-db.firebaseio.com">
                 </div>
                 <div class="input-group">
                     <label>Admin Secret (Token)</label>
-                    <input type="password" id="auth-secret" placeholder="Secret Token">
+                    <input type="password" id="auth-secret" placeholder="Database Secret Token">
                 </div>
-                <button id="login-btn" class="btn-primary" onclick="login()" style="margin-top: 10px;">CONNECT</button>
+                <button id="login-btn" class="btn-primary" onclick="login()" style="margin-top: 6px;">CONNECT DATABASE</button>
             </div>
             
             <div id="saved-connections" style="width: 100%; text-align: start; display: none;">
                 <div style="display:flex; justify-content:space-between; margin: 10px 4px 8px;">
-                    <span style="color:var(--text-muted); font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:1px;">History</span>
-                    <span style="color:var(--danger); font-size:0.7rem; font-weight:800; cursor:pointer; letter-spacing:1px;" onclick="clearAllHistory()">CLEAR</span>
+                    <span style="color:var(--text-muted); font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:1px;">Saved Databases</span>
+                    <span style="color:var(--danger); font-size:0.68rem; font-weight:800; cursor:pointer; letter-spacing:1px;" onclick="clearAllHistory()">CLEAR ALL</span>
                 </div>
                 <div id="saved-url-list"></div>
             </div>
@@ -312,22 +309,25 @@
                 <div class="secure-badge"><div class="secure-dot"></div> SECURE</div>
             </div>
             <div class="header-sub">
-                <div class="sync-text">LIVE DATABASE SYNC</div>
+                <div class="sync-text">
+                    <span>LIVE DATABASE SYNC</span>
+                    <i class="fas fa-sync-alt" id="reload-icon" style="cursor:pointer; color:#fff; font-size:0.8rem;" onclick="fetchDatabase()" title="Refresh"></i>
+                </div>
                 <div class="disconnect-btn" onclick="logout()"><i class="fas fa-power-off"></i> DISCONNECT</div>
             </div>
         </div>
 
-        <!-- VIEWS -->
+        <!-- KEYS VIEW -->
         <div id="view-keys" class="view active">
-            <!-- STATS -->
+            <!-- COMPACT STATS -->
             <div class="stats-grid">
                 <div class="stat-card blue">
-                    <i class="fas fa-users stat-icon"></i>
+                    <i class="fas fa-key stat-icon"></i>
                     <div class="stat-num" id="stat-total">0</div>
                     <div class="stat-label">TOTAL KEYS</div>
                 </div>
                 <div class="stat-card cyan">
-                    <i class="fas fa-mobile-alt stat-icon"></i>
+                    <i class="fas fa-mobile-screen stat-icon"></i>
                     <div class="stat-num" id="stat-bound">0</div>
                     <div class="stat-label">BOUND DEVS</div>
                 </div>
@@ -338,11 +338,11 @@
                 </div>
             </div>
 
-            <!-- SEARCH -->
+            <!-- SEARCH &inline + FAB -->
             <div class="search-fab-container">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" class="search-input" id="search-keys" placeholder="Search Phone or HWID" oninput="handleSearch()">
+                    <input type="text" class="search-input" id="search-keys" placeholder="Search Key, HWID, Model or Remark..." oninput="handleSearch()">
                 </div>
                 <button class="fab-inline" onclick="openKeyModal()"><i class="fas fa-plus"></i></button>
             </div>
@@ -363,7 +363,7 @@
                     <span>DELETE<br>UNUSED</span>
                 </button>
                 <button class="bulk-btn btn-del-exp" onclick="bulkDeleteExpired()">
-                    <i class="fas fa-trash-alt"></i>
+                    <i class="fas fa-calendar-times"></i>
                     <span>DELETE<br>EXPIRED</span>
                 </button>
                 <button class="bulk-btn btn-unbind" onclick="bulkUnbindAll()">
@@ -376,86 +376,87 @@
             <div style="padding: 0 20px 20px;" id="keys-load-more-box"></div>
         </div>
 
-        <div id="view-bans" class="view">
-            <div class="search-fab-container" style="padding-top:20px;">
+        <!-- BOUND DEVICES VIEW (QUICK INSPECTOR) -->
+        <div id="view-devices" class="view">
+            <div class="search-fab-container" style="padding-top:16px;">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" class="search-input" id="search-bans" placeholder="Search Banned HWID..." oninput="renderBans()">
-                </div>
-                <button class="sq-btn" style="background:var(--danger); box-shadow:0 0 12px rgba(255,71,87,0.3); border:none;" onclick="openBanModal()"><i class="fas fa-ban" style="color:#fff;"></i></button>
-            </div>
-            <div class="content-area" id="bans-list"></div>
-        </div>
-
-        <div id="view-trials" class="view">
-            <div class="search-fab-container" style="padding-top:20px;">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" class="search-input" id="search-trials" placeholder="Search Trial HWID..." oninput="renderTrials()">
+                    <input type="text" class="search-input" id="search-devs" placeholder="Search Bound Device ID or Model..." oninput="renderBoundDevicesTab()">
                 </div>
             </div>
-            <div class="content-area" id="trials-list"></div>
+            <div class="content-area" id="bound-devs-list"></div>
         </div>
 
+        <!-- SETTINGS VIEW (App_Status) -->
         <div id="view-config" class="view">
-            <div class="content-area" style="padding-top:10px;">
+            <div class="content-area" style="padding-top:14px;">
                 
-                <h3 style="margin: 10px 0 6px 6px; color:var(--cyan); font-size:0.8rem; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
-                    <i class="fas fa-paint-brush"></i> Live App UI (Click to Edit)
+                <h3 style="margin: 0 0 8px 4px; color:var(--cyan); font-size:0.75rem; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
+                    <i class="fas fa-eye"></i> Live Dialog Preview
                 </h3>
                 
                 <div id="pv-container">
                     <div id="preview-card">
-                        <img id="pv-avatar" src="https://via.placeholder.com/150" style="width:70px; height:70px; border-radius:35px; border:2px solid var(--cyan); margin-bottom:12px; object-fit: cover; background: #000;">
-                        <div class="pv-inner">
-                            <div class="pv-title-row" id="pv-title-html" contenteditable="true" onkeyup="updateFromPreview('pv-title-html')">
-                                4.1.1 PREMIUM APPLICATION<br>kyc+gallery+watermark
-                            </div>
-                            <div id="pv-subtitle" contenteditable="true" onkeyup="updateFromPreview('pv-subtitle')">🔵 ULTRA PRO NMMS_4.1.1</div>
-                            
-                            <div class="pv-emg-box">
-                                <div style="font-size:0.8rem; color:#fff; font-weight:700; margin-bottom:8px; text-transform:uppercase;" id="pv-emergency-title" contenteditable="true" onkeyup="updateFromPreview('pv-emergency-title')">⚠️ SERVER ALERT</div>
-                                <div style="font-size:0.85rem; color:var(--text-muted); line-height:1.4;" id="pv-emergency-msg" contenteditable="true" onkeyup="updateFromPreview('pv-emergency-msg')">Server is under maintenance. Please try again later.</div>
-                            </div>
-                            
-                            <div class="pv-main-btn" id="pv-btn-admin" contenteditable="true" onkeyup="updateFromPreview('pv-btn-admin')">ADMIN LINK</div>
+                        <img id="pv-banner" src="" alt="Banner">
+                        <div class="pv-title-box" id="pv-title">DPMODS <font color="#9D00FF">VIP PANEL</font><br><small>SECURE AUTHENTICATION</small></div>
+                        <div class="pv-subtitle-box" id="pv-sub">🟢 WEBSITE: DPMods.com  |  🔵 TG: @dp_mods</div>
+                        
+                        <div class="pv-emg-box" id="pv-emg-box">
+                            <div style="font-size:0.75rem; color:var(--danger); font-weight:800; margin-bottom:4px; text-transform:uppercase;" id="pv-emg-title">⚠️ DPMODS SERVER ALERT</div>
+                            <div style="font-size:0.78rem; color:var(--text-muted); line-height:1.35;" id="pv-emg-msg">Server is currently under maintenance. Visit DPMods.com for updates.</div>
+                        </div>
+
+                        <div class="pv-btn-row">
+                            <div class="pv-btn" id="pv-btn-admin">ADMIN</div>
+                            <div class="pv-btn" id="pv-btn-trial" style="color:var(--success); border-color:rgba(46,213,115,0.3);">TRIAL</div>
+                            <div class="pv-btn primary">LOGIN</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="ios-card" style="margin-top: 10px;">
-                    <h3 style="margin-bottom: 12px; color:var(--cyan); font-size:0.9rem; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
-                        <i class="fas fa-sliders-h"></i> SYSTEM SETTINGS
+                <div class="ios-card">
+                    <h3 style="margin-bottom: 14px; color:var(--cyan); font-size:0.85rem; text-transform:uppercase; letter-spacing:1px; display:flex; align-items:center; gap:8px;">
+                        <i class="fas fa-sliders-h"></i> App_Status Configuration
                     </h3>
                     
-                    <div class="input-group"><label>MAIN BANNER IMAGE URL</label><input type="text" id="cfg-banner" oninput="syncToPreview()"></div>
-                    <div class="input-group"><label>ADMIN TELEGRAM LINK</label><input type="text" id="cfg-admin"></div>
+                    <div class="input-group">
+                        <label>PANEL TITLE (HTML SUPPORTED)</label>
+                        <textarea id="cfg-title" rows="2" oninput="syncPreview()" placeholder="DPMODS <font color='#9D00FF'>VIP PANEL</font>"></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label>PANEL SUBTITLE</label>
+                        <input type="text" id="cfg-sub" oninput="syncPreview()" placeholder="🟢 WEBSITE: DPMods.com | 🔵 TG: @dp_mods">
+                    </div>
+                    <div class="input-group">
+                        <label>MAIN BANNER IMAGE URL (OPTIONAL)</label>
+                        <input type="text" id="cfg-banner" oninput="syncPreview()" placeholder="https://...">
+                    </div>
+                    <div class="input-group">
+                        <label>ADMIN TELEGRAM LINK</label>
+                        <input type="text" id="cfg-admin" oninput="syncPreview()" placeholder="https://t.me/dp_mods">
+                    </div>
                     
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; padding: 4px 0; border-bottom: 1px solid var(--border-light); padding-bottom: 15px;">
-                        <span style="font-weight:800; font-size:1rem; color:var(--success);">Trial Enabled</span>
-                        <input type="checkbox" class="sq-checkbox" id="cfg-trial">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin: 18px 0; padding: 12px 14px; background:rgba(46,213,115,0.05); border:1px solid rgba(46,213,115,0.2); border-radius:12px;">
+                        <span style="font-weight:800; font-size:0.9rem; color:var(--success);">Trial Enabled</span>
+                        <input type="checkbox" class="sq-checkbox" id="cfg-trial" onchange="syncPreview()">
                     </div>
 
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                        <span style="font-weight:800; font-size:1rem; color:var(--danger);">Emergency Mode</span>
-                        <input type="checkbox" class="sq-checkbox" id="cfg-emg" style="border-color:var(--danger);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding: 12px 14px; background:rgba(255,71,87,0.05); border:1px solid rgba(255,71,87,0.2); border-radius:12px;">
+                        <span style="font-weight:800; font-size:0.9rem; color:var(--danger);">Emergency Mode</span>
+                        <input type="checkbox" class="sq-checkbox" id="cfg-emg" style="border-color:var(--danger);" onchange="syncPreview()">
                     </div>
                     
-                    <div class="input-group"><label>EMERGENCY TITLE</label><input type="text" id="cfg-emg-title"></div>
-                    <div class="input-group"><label>EMERGENCY MESSAGE</label><textarea id="cfg-emg-msg" rows="3"></textarea></div>
-
+                    <div class="input-group">
+                        <label>EMERGENCY TITLE</label>
+                        <input type="text" id="cfg-emg-title" oninput="syncPreview()">
+                    </div>
+                    <div class="input-group" style="margin-bottom:6px;">
+                        <label>EMERGENCY MESSAGE</label>
+                        <textarea id="cfg-emg-msg" rows="2" oninput="syncPreview()"></textarea>
+                    </div>
                 </div>
 
-                <div style="display:none;">
-                    <!-- Hidden inputs to store editable values -->
-                    <textarea id="ui-title-html"></textarea>
-                    <input type="text" id="ui-subtitle">
-                    <input type="text" id="ui-emergency-title">
-                    <textarea id="ui-emergency-msg"></textarea>
-                    <input type="text" id="ui-btn-admin">
-                </div>
-
-                <button class="btn-primary" onclick="saveConfig()" style="margin-bottom:20px;">SAVE SETTINGS</button>
+                <button class="btn-primary" onclick="saveConfig()" style="margin-bottom:20px;">SAVE APP_STATUS</button>
             </div>
         </div>
 
@@ -467,38 +468,43 @@
     <div class="modal-overlay" id="key-modal">
         <div class="modal-card">
             <div class="modal-handle"></div>
-            <h2 style="font-size:1.3rem; font-weight:900; text-align:center; margin-bottom:20px; text-transform:uppercase;">GENERATE KEY</h2>
+            <h2 style="font-size:1.25rem; font-weight:900; text-align:center; margin-bottom:18px; text-transform:uppercase;">GENERATE KEY</h2>
             
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding:14px 16px; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid var(--border-light);">
-                <span style="font-weight:800; font-size:0.95rem;">Generate Bulk Keys</span>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding:12px 16px; background:rgba(255,255,255,0.03); border-radius:12px; border:1px solid var(--border-light);">
+                <span style="font-weight:800; font-size:0.9rem;">Generate Bulk Keys</span>
                 <input type="checkbox" class="sq-checkbox" id="chk-bulk" onchange="document.getElementById('bulk-qty-row').style.display = this.checked ? 'block' : 'none'; document.getElementById('single-key-row').style.display = this.checked ? 'none' : 'block';">
             </div>
 
             <div class="input-group" id="single-key-row">
-                <label>KEY NAME / PREFIX</label>
+                <label>KEY ID / NAME</label>
                 <div style="display:flex; gap:10px;">
-                    <input type="text" id="mod-key-id" value="CYFER-VIP-" style="font-family: 'JetBrains Mono', monospace; font-size:1.05rem; height:48px;">
+                    <input type="text" id="mod-key-id" value="DPMODS-VIP-" style="font-family: 'JetBrains Mono', monospace; font-size:1rem; height:46px;">
                     <div class="sq-btn" onclick="randomKey()"><i class="fas fa-dice" style="color:var(--cyan); font-size:1.2rem;"></i></div>
                 </div>
             </div>
 
             <div class="input-group" id="bulk-qty-row" style="display:none;">
-                <label>QUANTITY</label>
-                <input type="number" id="mod-bulk-qty" value="10" min="2" max="100" style="height:48px;">
+                <label>QUANTITY TO GENERATE</label>
+                <input type="number" id="mod-bulk-qty" value="10" min="2" max="100" style="height:46px;">
+            </div>
+
+            <div class="input-group">
+                <label>REMARK / CLIENT NOTE (OPTIONAL)</label>
+                <input type="text" id="mod-key-remark" placeholder="e.g. Paid ₹500 - Rahul" style="height:46px;">
             </div>
 
             <div class="input-row">
                 <div class="input-group">
                     <label>DURATION (DAYS)</label>
-                    <input type="number" id="mod-key-days" value="30" min="1" style="height:48px;">
+                    <input type="number" id="mod-key-days" value="30" min="1" style="height:46px;">
                 </div>
                 <div class="input-group">
                     <label>DEVICE LIMIT</label>
-                    <input type="number" id="mod-key-limit" value="1" min="1" style="height:48px;">
+                    <input type="number" id="mod-key-limit" value="1" min="1" style="height:46px;">
                 </div>
             </div>
 
-            <div style="display: flex; gap: 12px; margin-top: 20px;">
+            <div style="display: flex; gap: 12px; margin-top: 18px;">
                 <button class="modal-btn-cancel" onclick="closeModals()">CANCEL</button>
                 <button class="modal-btn-action" onclick="saveKey()">GENERATE</button>
             </div>
@@ -509,54 +515,50 @@
     <div class="modal-overlay" id="edit-key-modal">
         <div class="modal-card">
             <div class="modal-handle"></div>
-            <h2 style="color:var(--cyan); font-size:1.3rem; font-weight:900; text-align:center; margin-bottom:20px; text-transform:uppercase;">EDIT KEY</h2>
+            <h2 style="color:var(--cyan); font-size:1.25rem; font-weight:900; text-align:center; margin-bottom:18px; text-transform:uppercase;">EDIT KEY</h2>
             
             <div class="input-group">
                 <label>KEY ID</label>
-                <input type="text" id="edit-key-id" readonly style="opacity:0.6; font-family:'JetBrains Mono', monospace; height:48px;">
+                <input type="text" id="edit-key-id" readonly style="opacity:0.6; font-family:'JetBrains Mono', monospace; height:46px;">
             </div>
 
-            <div style="background:rgba(0,0,0,0.3); padding:16px; border-radius:12px; margin-bottom:16px; border:1px solid var(--border-light);">
+            <div style="background:rgba(255,71,87,0.06); padding:14px 16px; border-radius:12px; margin-bottom:16px; border:1px solid rgba(255,71,87,0.25);">
                 <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-weight:800; font-size:0.95rem; color:var(--danger);">Ban this Key</span>
+                    <span style="font-weight:800; font-size:0.92rem; color:var(--danger);">Ban this Key</span>
                     <input type="checkbox" class="sq-checkbox" id="edit-key-ban" style="border-color:var(--danger);">
                 </div>
+            </div>
+
+            <div class="input-group">
+                <label>REMARK / CLIENT NOTE</label>
+                <input type="text" id="edit-key-remark" placeholder="Client Name / Note" style="height:46px;">
             </div>
 
             <div class="input-row">
                 <div class="input-group">
                     <label>DURATION (DAYS)</label>
-                    <input type="number" id="edit-key-days" min="1" style="height:48px;">
+                    <input type="number" id="edit-key-days" min="1" style="height:46px;">
                 </div>
                 <div class="input-group">
                     <label>DEVICE LIMIT</label>
-                    <input type="number" id="edit-key-limit" min="1" style="height:48px;">
+                    <input type="number" id="edit-key-limit" min="1" style="height:46px;">
                 </div>
+            </div>
+
+            <!-- BOUND DEVICES EDITOR (DeviceID + Model) -->
+            <div class="input-group" style="margin-top:6px;">
+                <label>BOUND DEVICES (ID & MODEL)</label>
+                <div id="edit-dev-list" style="display:flex; flex-direction:column; gap:8px;"></div>
+                <button class="btn" style="background:rgba(0, 229, 255, 0.08); color:var(--cyan); margin-top: 10px; width: 100%; border: 1px dashed var(--border-cyan); border-radius:10px; font-weight:800; font-size:0.75rem; padding:12px; cursor:pointer;" onclick="addDeviceInputToEdit()">
+                    <i class="fas fa-plus"></i> ADD DEVICE MANUALLY
+                </button>
             </div>
 
             <input type="hidden" id="edit-key-time">
 
-            <div style="display: flex; gap: 12px; margin-top: 20px;">
+            <div style="display: flex; gap: 12px; margin-top: 22px;">
                 <button class="modal-btn-cancel" onclick="closeModals()">CANCEL</button>
                 <button class="modal-btn-action" onclick="saveEditedKey()">UPDATE</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Add Ban Modal -->
-    <div class="modal-overlay" id="ban-modal">
-        <div class="modal-card">
-            <div class="modal-handle"></div>
-            <h2 style="color: var(--danger); font-size:1.3rem; font-weight:900; text-align:center; margin-bottom:20px; text-transform:uppercase;">BLOCK HARDWARE</h2>
-            
-            <div class="input-group">
-                <label>HWID TO BLOCK</label>
-                <input type="text" id="mod-ban-id" placeholder="e.g. hacker_device_123" style="font-family: 'JetBrains Mono', monospace; height:48px;">
-            </div>
-
-            <div style="display: flex; gap: 12px; margin-top: 20px;">
-                <button class="modal-btn-cancel" onclick="closeModals()">CANCEL</button>
-                <button class="modal-btn-action red" onclick="saveBan()">BLOCK</button>
             </div>
         </div>
     </div>
@@ -567,16 +569,12 @@
             <div class="nav-icon-wrap"><i class="fas fa-key"></i></div>
             <span>KEYS</span>
         </div>
-        <div class="nav-item" onclick="nav('bans', this)">
-            <div class="nav-icon-wrap"><i class="fas fa-skull"></i></div>
-            <span>CRASH</span>
-        </div>
-        <div class="nav-item" onclick="nav('trials', this)">
-            <div class="nav-icon-wrap"><i class="fas fa-mobile-alt"></i></div>
+        <div class="nav-item" onclick="nav('devices', this)">
+            <div class="nav-icon-wrap"><i class="fas fa-mobile-screen"></i></div>
             <span>DEVICES</span>
         </div>
         <div class="nav-item" onclick="nav('config', this)">
-            <div class="nav-icon-wrap"><i class="fas fa-cog"></i></div>
+            <div class="nav-icon-wrap"><i class="fas fa-sliders-h"></i></div>
             <span>SETTINGS</span>
         </div>
     </div>
@@ -587,7 +585,7 @@
 
         let DB_URL = "";
         let DB_SECRET = "";
-        let DB = { App_Status: {}, Banned_HWIDs: {}, Keys: {}, Trials: {} }; 
+        let DB = { App_Status: {}, Keys: {} }; 
         let lastSyncedKeysHash = "";
         let currentFilter = 'all';
         let expandedKey = null; 
@@ -597,8 +595,8 @@
         let searchDebounceTimer = null;
         
         window.onload = () => {
-            const lastUrl = getStorage('dp_cyber_url', '');
-            const lastSecret = getStorage('dp_cyber_secret', '');
+            const lastUrl = getStorage('dp_vip_url', '');
+            const lastSecret = getStorage('dp_vip_secret', '');
             
             if (lastUrl) document.getElementById('auth-url').value = lastUrl;
             if (lastSecret) document.getElementById('auth-secret').value = lastSecret;
@@ -607,7 +605,8 @@
         };
 
         function renderSavedUrls() {
-            let savedConns = JSON.parse(getStorage('dp_cyber_conns', '[]')) || [];
+            let savedConns = [];
+            try { savedConns = JSON.parse(getStorage('dp_vip_conns', '[]')) || []; } catch(e) {}
             const container = document.getElementById('saved-connections');
             const list = document.getElementById('saved-url-list');
             list.innerHTML = "";
@@ -619,9 +618,13 @@
                 list.innerHTML += `
                     <div class="saved-url-item" onclick="setAndConnect('${conn.url}', '${conn.secret}')">
                         <div style="flex:1; overflow:hidden;">
-                            <div style="font-size:0.85rem; font-weight:800; color:#fff; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;"><i class="fas fa-database" style="color:var(--cyan); margin-right:8px;"></i>${displayHost}</div>
+                            <div style="font-size:0.82rem; font-weight:800; color:#fff; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                                <i class="fas fa-database" style="color:var(--cyan); margin-right:8px;"></i>${displayHost}
+                            </div>
                         </div>
-                        <div style="background:var(--danger-dim); color:var(--danger); width:32px; height:32px; border-radius:10px; display:flex; justify-content:center; align-items:center;" onclick="removeSavedUrl(${index}, event)"><i class="fas fa-trash" style="font-size:0.8rem;"></i></div>
+                        <div style="background:var(--danger-dim); color:var(--danger); width:30px; height:30px; border-radius:8px; display:flex; justify-content:center; align-items:center;" onclick="removeSavedUrl(${index}, event)">
+                            <i class="fas fa-trash" style="font-size:0.75rem;"></i>
+                        </div>
                     </div>
                 `;
             });
@@ -635,29 +638,29 @@
 
         function removeSavedUrl(index, event) {
             if (event) event.stopPropagation();
-            let savedConns = JSON.parse(getStorage('dp_cyber_conns', '[]')) || [];
+            let savedConns = JSON.parse(getStorage('dp_vip_conns', '[]')) || [];
             savedConns.splice(index, 1);
-            setStorage('dp_cyber_conns', JSON.stringify(savedConns));
+            setStorage('dp_vip_conns', JSON.stringify(savedConns));
             renderSavedUrls();
         }
 
         function clearAllHistory() {
-            if (confirm("Clear connection history?")) {
-                setStorage('dp_cyber_conns', '[]');
+            if (confirm("Clear all saved database connections?")) {
+                setStorage('dp_vip_conns', '[]');
                 renderSavedUrls();
             }
         }
 
         async function login() {
             const btn = document.getElementById('login-btn');
-            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> CONNECTING...`;
             
             let url = document.getElementById('auth-url').value.trim();
             const secret = document.getElementById('auth-secret').value.trim();
 
             if (!url || !secret) {
                 showIsland("Enter URL and Token!", "error");
-                btn.innerHTML = "CONNECT"; return;
+                btn.innerHTML = "CONNECT DATABASE"; return;
             }
 
             url = url.replace(/\/+$/, '');
@@ -668,25 +671,21 @@
                 const res = await fetch(`${DB_URL}/.json?auth=${DB_SECRET}`);
                 if (!res.ok) throw new Error("Auth Failed");
                 
-                const data = await res.json();
-                if (data && typeof data === 'object') {
-                    DB = {
-                        App_Status: data.App_Status || {},
-                        Banned_HWIDs: data.Banned_HWIDs || {},
-                        Keys: data.Keys || {},
-                        Trials: data.Trials || {}
-                    };
-                }
+                const data = await res.json() || {};
+                DB = {
+                    App_Status: data.App_Status || {},
+                    Keys: data.Keys || {}
+                };
 
-                setStorage('dp_cyber_url', DB_URL);
-                setStorage('dp_cyber_secret', DB_SECRET);
+                setStorage('dp_vip_url', DB_URL);
+                setStorage('dp_vip_secret', DB_SECRET);
 
-                let savedConns = JSON.parse(getStorage('dp_cyber_conns', '[]')) || [];
+                let savedConns = JSON.parse(getStorage('dp_vip_conns', '[]')) || [];
                 const existingIndex = savedConns.findIndex(c => c.url === DB_URL);
                 if (existingIndex !== -1) savedConns.splice(existingIndex, 1);
                 savedConns.unshift({ url: DB_URL, secret: DB_SECRET });
-                if (savedConns.length > 5) savedConns.pop(); 
-                setStorage('dp_cyber_conns', JSON.stringify(savedConns));
+                if (savedConns.length > 6) savedConns.pop(); 
+                setStorage('dp_vip_conns', JSON.stringify(savedConns));
                 
                 const loginScreen = document.getElementById('login-screen');
                 loginScreen.style.opacity = '0';
@@ -697,23 +696,22 @@
                     document.getElementById('main-app').style.display = 'flex'; 
                     document.getElementById('bottom-nav').style.display = 'flex';
                     
-                    loadConfig(); 
-                    
                     currentFilter = 'all';
                     visibleKeysCount = PAGE_CHUNK;
                     document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
                     document.querySelector('.filter-chip').classList.add('active'); 
                     
+                    loadConfig(); 
                     renderAll();
-                    showIsland("Connected to Database", "success", "fa-satellite-dish");
+                    showIsland("Connected to DPMods VIP", "success", "fa-check-circle");
                 }, 300);
 
                 if (window.syncInterval) clearInterval(window.syncInterval);
-                window.syncInterval = setInterval(silentBackgroundSync, 12000);
+                window.syncInterval = setInterval(silentBackgroundSync, 10000);
 
             } catch (e) {
-                showIsland("Connection Failed!", "error");
-                btn.innerHTML = "CONNECT";
+                showIsland("Connection Failed! Check URL/Token", "error");
+                btn.innerHTML = "CONNECT DATABASE";
             }
         }
 
@@ -723,21 +721,17 @@
             try {
                 const res = await fetch(`${DB_URL}/.json?auth=${DB_SECRET}`);
                 if (res.ok) {
-                    const data = await res.json();
-                    if (data && typeof data === 'object') {
-                        DB = {
-                            App_Status: data.App_Status || {},
-                            Banned_HWIDs: data.Banned_HWIDs || {},
-                            Keys: data.Keys || {},
-                            Trials: data.Trials || {}
-                        };
-                    }
+                    const data = await res.json() || {};
+                    DB = {
+                        App_Status: data.App_Status || {},
+                        Keys: data.Keys || {}
+                    };
                     loadConfig(); 
                     renderAll();
-                    showIsland("Sync Complete", "success", "fa-sync");
+                    showIsland("Database Synced", "success", "fa-sync");
                 }
             } catch (e) {}
-            icon.classList.remove('fa-spin');
+            setTimeout(() => icon.classList.remove('fa-spin'), 400);
         }
 
         async function silentBackgroundSync() {
@@ -749,7 +743,7 @@
                     if (newHash !== lastSyncedKeysHash) {
                         DB.Keys = keysData;
                         lastSyncedKeysHash = newHash;
-                        renderKeys();
+                        renderAll();
                     }
                 }
             } catch (e) {}
@@ -773,6 +767,8 @@
 
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             if (el) el.classList.add('active');
+
+            if (viewId === 'devices') renderBoundDevicesTab();
         }
 
         function closeModals() { document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active')); }
@@ -784,86 +780,150 @@
             el.value = text;
             document.body.appendChild(el); 
             el.select();
-            try { document.execCommand('copy'); showIsland("Copied to clipboard", "success", "fa-copy"); } catch (e) {}
+            try { document.execCommand('copy'); showIsland("Copied: " + text, "success", "fa-copy"); } catch (e) {}
             document.body.removeChild(el);
         }
 
-        /* --- PREVIEW SYNC --- */
-        const previewMap = {
-            'pv-title-html': 'ui-title-html',
-            'pv-subtitle': 'ui-subtitle',
-            'pv-emergency-title': 'ui-emergency-title',
-            'pv-emergency-msg': 'ui-emergency-msg',
-            'pv-btn-admin': 'ui-btn-admin'
-        };
-
-        function updateFromPreview(previewId) {
-            const inputId = previewMap[previewId];
-            if(inputId) {
-                const val = document.getElementById(previewId).innerHTML;
-                document.getElementById(inputId).value = val.trim();
-            }
-        }
-
-        function syncToPreview() {
-            const avatarUrl = document.getElementById('cfg-banner').value;
-            if (avatarUrl) document.getElementById('pv-avatar').src = avatarUrl;
-            
-            document.getElementById('pv-title-html').innerHTML = document.getElementById('ui-title-html').value || "4.1.1 PREMIUM APPLICATION<br>kyc+gallery+watermark";
-            document.getElementById('pv-subtitle').innerText = document.getElementById('ui-subtitle').value || "🔵 ULTRA PRO NMMS_4.1.1";
-            document.getElementById('pv-emergency-title').innerText = document.getElementById('ui-emergency-title').value || "⚠️ SERVER ALERT";
-            document.getElementById('pv-emergency-msg').innerText = document.getElementById('ui-emergency-msg').value || "Server is under maintenance.";
-            document.getElementById('pv-btn-admin').innerText = document.getElementById('ui-btn-admin').value || "ADMIN LINK";
-        }
-
-        /* --- CONFIG LOGIC --- */
+        /* --- CONFIG & LIVE PREVIEW --- */
         function loadConfig() {
             const cfg = DB.App_Status || {};
-            
-            document.getElementById('cfg-dialog').checked = true; // Fixed default
+            document.getElementById('cfg-title').value = cfg.Panel_Title || "DPMODS <font color='#9D00FF'>VIP PANEL</font><br><small>SECURE AUTHENTICATION</small>";
+            document.getElementById('cfg-sub').value = cfg.Panel_SubTitle || "🟢 WEBSITE: DPMods.com  |  🔵 TG: @dp_mods";
             document.getElementById('cfg-banner').value = cfg.Main_Banner_Url || "";
-            document.getElementById('cfg-admin').value = cfg.Admin_Link || "";
-            document.getElementById('cfg-trial').checked = cfg.Trial_Enabled === true;
+            document.getElementById('cfg-admin').value = cfg.Admin_Link || "https://t.me/dp_mods";
+            document.getElementById('cfg-trial').checked = cfg.Trial_Enabled !== false;
             document.getElementById('cfg-emg').checked = cfg.Emergency_Mode === true;
-            document.getElementById('cfg-emg-title').value = cfg.Emergency_Title || "";
-            document.getElementById('cfg-emg-msg').value = cfg.Emergency_Msg || "";
-            
-            // HTML content capable inputs
-            document.getElementById('ui-title-html').value = cfg.Panel_Title || "";
-            document.getElementById('ui-subtitle').value = cfg.Panel_SubTitle || "";
-            document.getElementById('ui-emergency-title').value = cfg.Emergency_Title || "";
-            document.getElementById('ui-emergency-msg').value = cfg.Emergency_Msg || "";
-            document.getElementById('ui-btn-admin').value = cfg.Admin_Link || "";
+            document.getElementById('cfg-emg-title').value = cfg.Emergency_Title || "⚠️ DPMODS SERVER ALERT";
+            document.getElementById('cfg-emg-msg').value = cfg.Emergency_Msg || "Server is currently under maintenance. Visit DPMods.com for updates.";
 
-            syncToPreview();
+            syncPreview();
+        }
+
+        function syncPreview() {
+            const titleVal = document.getElementById('cfg-title').value;
+            const subVal = document.getElementById('cfg-sub').value;
+            const bannerVal = document.getElementById('cfg-banner').value.trim();
+            const emgTitle = document.getElementById('cfg-emg-title').value;
+            const emgMsg = document.getElementById('cfg-emg-msg').value;
+            const trialOn = document.getElementById('cfg-trial').checked;
+            const emgOn = document.getElementById('cfg-emg').checked;
+
+            document.getElementById('pv-title').innerHTML = titleVal || "DPMODS VIP";
+            document.getElementById('pv-sub').innerText = subVal || "";
+            document.getElementById('pv-emg-title').innerText = emgTitle || "⚠️ SERVER ALERT";
+            document.getElementById('pv-emg-msg').innerText = emgMsg || "";
+
+            const bannerEl = document.getElementById('pv-banner');
+            if (bannerVal) {
+                bannerEl.src = bannerVal;
+                bannerEl.style.display = 'block';
+            } else {
+                bannerEl.style.display = 'none';
+            }
+
+            document.getElementById('pv-btn-trial').style.display = trialOn ? 'block' : 'none';
+            document.getElementById('pv-emg-box').style.opacity = emgOn ? '1' : '0.45';
         }
 
         async function saveConfig() {
             const newConfig = {
-                Admin_Link: document.getElementById('ui-btn-admin').value.trim() || document.getElementById('cfg-admin').value.trim(),
+                Admin_Link: document.getElementById('cfg-admin').value.trim(),
                 Emergency_Mode: document.getElementById('cfg-emg').checked,
-                Emergency_Msg: document.getElementById('ui-emergency-msg').value.trim() || document.getElementById('cfg-emg-msg').value.trim(),
-                Emergency_Title: document.getElementById('ui-emergency-title').value.trim() || document.getElementById('cfg-emg-title').value.trim(),
-                Emergency_Banner: DB.App_Status.Emergency_Banner || "",
-                Emergency_Cancel_Btn: DB.App_Status.Emergency_Cancel_Btn || false,
+                Emergency_Msg: document.getElementById('cfg-emg-msg').value.trim(),
+                Emergency_Title: document.getElementById('cfg-emg-title').value.trim(),
                 Main_Banner_Url: document.getElementById('cfg-banner').value.trim(),
-                Panel_SubTitle: document.getElementById('ui-subtitle').value.trim(),
-                Panel_Title: document.getElementById('ui-title-html').value.trim(),
+                Panel_SubTitle: document.getElementById('cfg-sub').value.trim(),
+                Panel_Title: document.getElementById('cfg-title').value.trim(),
                 Trial_Enabled: document.getElementById('cfg-trial').checked
             };
 
             DB.App_Status = newConfig;
             await syncNode('App_Status', newConfig);
-            showIsland("Settings Saved", "success", "fa-cogs");
+            showIsland("App_Status Saved!", "success", "fa-check");
         }
 
-        /* --- KEYS OPTIMIZATION --- */
+        /* --- TIMESTAMP & STATUS HELPERS --- */
+        function parseTimestamp(ts) {
+            if (!ts || Number(ts) <= 0) return 0;
+            const num = Number(ts);
+            return num < 10000000000 ? num * 1000 : num;
+        }
+
+        function getDeviceCount(data) {
+            if (!data || !data.Devices || typeof data.Devices !== 'object') return 0;
+            return Object.keys(data.Devices).length;
+        }
+
+        function getKeyStatus(data) {
+            if (data.Banned === true) return { id: 'banned', class: 'banned', text: 'BANNED', color: 'var(--danger)' };
+            
+            const firstMs = parseTimestamp(data.FirstLoginTime);
+            const devCount = getDeviceCount(data);
+
+            if (firstMs > 0) {
+                const days = Number(data.DurationDays) || 0;
+                const expMs = firstMs + (days * 86400000);
+                if (Date.now() > expMs) {
+                    return { id: 'expired', class: 'expired', text: 'EXPIRED', color: 'var(--warning)' };
+                }
+                return { id: 'active', class: 'active', text: 'ACTIVE', color: 'var(--success)' };
+            }
+
+            if (devCount > 0) {
+                return { id: 'active', class: 'active', text: 'ACTIVE', color: 'var(--success)' };
+            }
+
+            return { id: 'unused', class: 'unused', text: 'UNUSED', color: 'var(--text-muted)' };
+        }
+
+        function formatTime(ts) {
+            const ms = parseTimestamp(ts);
+            if (!ms) return "Not Logged In";
+            return new Date(ms).toLocaleString();
+        }
+
+        function calcExpiry(ts, days) {
+            const ms = parseTimestamp(ts);
+            if (!ms) return `${days || 0} Days (On Login)`;
+            const expMs = ms + ((Number(days) || 0) * 86400000);
+            return new Date(expMs).toLocaleString();
+        }
+
+        /* --- STATS & RENDERING --- */
+        function renderAll() {
+            renderStats();
+            renderKeys();
+            if (document.getElementById('view-devices').classList.contains('active')) {
+                renderBoundDevicesTab();
+            }
+        }
+
+        function renderStats() {
+            const keysObj = DB.Keys || {};
+            const entries = Object.values(keysObj);
+            
+            let totalKeys = entries.length;
+            let totalBoundDevs = 0;
+            let totalExpired = 0;
+
+            entries.forEach(k => {
+                if (!k || typeof k !== 'object') return;
+                totalBoundDevs += getDeviceCount(k);
+                const st = getKeyStatus(k);
+                if (st.id === 'expired') totalExpired++;
+            });
+
+            document.getElementById('stat-total').innerText = totalKeys;
+            document.getElementById('stat-bound').innerText = totalBoundDevs;
+            document.getElementById('stat-expired').innerText = totalExpired;
+        }
+
         function handleSearch() {
             clearTimeout(searchDebounceTimer);
             searchDebounceTimer = setTimeout(() => {
                 visibleKeysCount = PAGE_CHUNK; 
                 renderKeys();
-            }, 250);
+            }, 200);
         }
 
         function setFilter(val, el) {
@@ -874,221 +934,9 @@
             renderKeys(); 
         }
 
-        function openKeyModal() {
-            document.getElementById('mod-key-id').value = "CYFER-VIP-";
-            document.getElementById('mod-key-days').value = 30;
-            document.getElementById('mod-key-limit').value = 1;
-            
-            document.getElementById('chk-bulk').checked = false;
-            document.getElementById('bulk-qty-row').style.display = 'none';
-            document.getElementById('single-key-row').style.display = 'block';
-            document.getElementById('key-modal').classList.add('active');
-        }
-
-        function randomKey() { 
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let res = '';
-            for(let i=0; i<6; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
-            document.getElementById('mod-key-id').value = 'CYFER-VIP-' + res; 
-        }
-
-        async function saveKey() {
-            const isBulk = document.getElementById('chk-bulk').checked;
-            const limit = parseInt(document.getElementById('mod-key-limit').value) || 1;
-            const days = parseInt(document.getElementById('mod-key-days').value) || 30;
-
-            let newKeysObj = {};
-            if (isBulk) {
-                const qty = parseInt(document.getElementById('mod-bulk-qty').value) || 10;
-                for (let i = 0; i < qty; i++) {
-                    let newId;
-                    do { 
-                        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                        let res = '';
-                        for(let j=0; j<6; j++) res += chars.charAt(Math.floor(Math.random() * chars.length));
-                        newId = 'CYFER-VIP-' + res; 
-                    } while (DB.Keys[newId] || newKeysObj[newId]); 
-                    
-                    newKeysObj[newId] = { Banned: false, DeviceLimit: limit, DurationDays: days, FirstLoginTime: 0 };
-                    DB.Keys[newId] = newKeysObj[newId];
-                }
-            } else {
-                const keyId = document.getElementById('mod-key-id').value.trim();
-                if (!keyId) return;
-                if (DB.Keys[keyId]) return showIsland("Key already exists!", "error");
-                
-                newKeysObj[keyId] = { Banned: false, DeviceLimit: limit, DurationDays: days, FirstLoginTime: 0 };
-                DB.Keys[keyId] = newKeysObj[keyId];
-            }
-
-            try {
-                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PATCH', body: JSON.stringify(newKeysObj) });
-                showIsland("Keys Generated", "success", "fa-key");
-            } catch (e) {}
-            
-            closeModals(); 
-            renderAll();
-        }
-
-        function openEditKeyModal(keyId, event) {
-            if(event) event.stopPropagation();
-            const data = DB.Keys[keyId] || {};
-            document.getElementById('edit-key-id').value = keyId;
-            document.getElementById('edit-key-limit').value = data.DeviceLimit || 1;
-            document.getElementById('edit-key-days').value = data.DurationDays || 30;
-            document.getElementById('edit-key-time').value = data.FirstLoginTime || 0;
-            document.getElementById('edit-key-ban').checked = data.Banned === true;
-            document.getElementById('edit-key-modal').classList.add('active');
-        }
-
-        async function saveEditedKey() {
-            const keyId = document.getElementById('edit-key-id').value;
-            const limit = parseInt(document.getElementById('edit-key-limit').value) || 1;
-            const days = parseInt(document.getElementById('edit-key-days').value) || 30;
-            const time = parseInt(document.getElementById('edit-key-time').value) || 0;
-            const isBan = document.getElementById('edit-key-ban').checked;
-
-            DB.Keys[keyId].Banned = isBan;
-            DB.Keys[keyId].DeviceLimit = limit;
-            DB.Keys[keyId].DurationDays = days;
-            DB.Keys[keyId].FirstLoginTime = time;
-            
-            await syncNode(`Keys/${keyId}`, DB.Keys[keyId]);
-
-            closeModals(); 
-            renderAll();
-            showIsland("Key Updated", "success", "fa-pen");
-        }
-
-        async function deleteKey(keyId, event) {
-            if(event) event.stopPropagation();
-            if (confirm(`Delete Key ${keyId}?`)) {
-                delete DB.Keys[keyId]; 
-                await syncNode(`Keys/${keyId}`, null);
-                renderAll(); 
-                showIsland("Key Deleted", "success", "fa-trash");
-            }
-        }
-
-        async function resetKey(keyId, event) {
-            if(event) event.stopPropagation();
-            if (confirm(`Reset and Unlink Key ${keyId}? (Will make it fresh)`)) {
-                DB.Keys[keyId].FirstLoginTime = 0;
-                delete DB.Keys[keyId].Devices;
-                
-                await fetch(`${DB_URL}/Keys/${keyId}.json?auth=${DB_SECRET}`, {
-                    method: 'PATCH',
-                    body: JSON.stringify({ FirstLoginTime: 0, Devices: null })
-                });
-                renderAll(); 
-                showIsland("Key Reset Successfully", "success", "fa-unlink");
-            }
-        }
-
         function toggleAccordion(keyId) {
-            if(expandedKey === keyId) {
-                expandedKey = null;
-            } else {
-                expandedKey = keyId;
-            }
+            expandedKey = (expandedKey === keyId) ? null : keyId;
             renderKeys(); 
-        }
-
-        function parseTimestamp(ts) {
-            if (!ts) return 0;
-            return ts.toString().length <= 10 ? ts * 1000 : ts;
-        }
-
-        function getKeyStatus(data) {
-            if (data.Banned) return { id: 'banned', class: 'banned', text: 'BANNED', color: 'var(--danger)' };
-            
-            const firstTimeMs = parseTimestamp(data.FirstLoginTime);
-            if(firstTimeMs === 0) return { id: 'unused', class: 'unused', text: 'UNUSED', color: 'var(--text-muted)' };
-            
-            const expTimeMs = firstTimeMs + (data.DurationDays * 86400000);
-            const now = Date.now();
-
-            if(now > expTimeMs) return { id: 'expired', class: 'expired', text: 'EXPIRED', color: 'var(--warning)' };
-            return { id: 'active', class: 'active', text: 'ACTIVE', color: 'var(--success)' };
-        }
-
-        function formatTime(ts) {
-            const ms = parseTimestamp(ts);
-            if (!ms || ms === 0) return "Not Activated";
-            return new Date(ms).toLocaleString();
-        }
-        function calcExpiry(ts, days) {
-            const ms = parseTimestamp(ts);
-            if (!ms || ms === 0) return "Pending Login";
-            return new Date(ms + (days * 86400000)).toLocaleString();
-        }
-
-        /* --- BULK ACTIONS --- */
-        async function bulkDeleteUnused() {
-            if(!confirm("Are you sure you want to delete ALL UNUSED keys?")) return;
-            const updates = {};
-            let count = 0;
-            Object.entries(DB.Keys).forEach(([k, v]) => {
-                if(!v.FirstLoginTime || v.FirstLoginTime === 0) { updates[k] = null; delete DB.Keys[k]; count++; }
-            });
-            if(count > 0) {
-                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PATCH', body: JSON.stringify(updates) });
-                renderAll(); showIsland(`Deleted ${count} unused keys`, "success");
-            } else showIsland("No unused keys found", "error");
-        }
-
-        async function bulkDeleteExpired() {
-            if(!confirm("Are you sure you want to delete ALL EXPIRED keys?")) return;
-            const updates = {};
-            let count = 0;
-            const now = Date.now();
-            Object.entries(DB.Keys).forEach(([k, v]) => {
-                const firstTime = parseTimestamp(v.FirstLoginTime);
-                if(firstTime > 0) {
-                    const exp = firstTime + (v.DurationDays * 86400000);
-                    if(now > exp) { updates[k] = null; delete DB.Keys[k]; count++; }
-                }
-            });
-            if(count > 0) {
-                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PATCH', body: JSON.stringify(updates) });
-                renderAll(); showIsland(`Deleted ${count} expired keys`, "success");
-            } else showIsland("No expired keys found", "error");
-        }
-
-        async function bulkUnbindAll() {
-            if(!confirm("Are you sure you want to UNBIND ALL devices from ALL keys?")) return;
-            let count = 0;
-            for (let k in DB.Keys) {
-                if(DB.Keys[k].Devices) {
-                    delete DB.Keys[k].Devices;
-                    count++;
-                }
-            }
-            if(count > 0) {
-                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PUT', body: JSON.stringify(DB.Keys) });
-                renderAll(); showIsland(`Unbound devices from ${count} keys`, "success");
-            } else showIsland("No bound devices found", "error");
-        }
-
-        function renderAll() {
-            renderStats();
-            renderKeys();
-            renderBans();
-            renderTrials();
-        }
-
-        function renderStats() {
-            let total = 0, bound = 0, expired = 0;
-            const now = Date.now();
-            Object.values(DB.Keys || {}).forEach(k => {
-                total++;
-                if(k.Devices) bound += Object.keys(k.Devices).length;
-                const firstTime = parseTimestamp(k.FirstLoginTime);
-                if(firstTime > 0 && now > (firstTime + (k.DurationDays * 86400000))) expired++;
-            });
-            document.getElementById('stat-total').innerText = total;
-            document.getElementById('stat-bound').innerText = bound;
-            document.getElementById('stat-expired').innerText = expired;
         }
 
         function renderKeys() {
@@ -1097,27 +945,36 @@
             const search = document.getElementById('search-keys').value.toLowerCase().trim();
             
             const rawKeys = Object.entries(DB.Keys || {}).reverse();
-            
             const filtered = [];
+
             for (let i = 0; i < rawKeys.length; i++) {
                 const [keyId, data] = rawKeys[i];
-                
-                let matchesSearch = keyId.toLowerCase().includes(search);
+                if (!data || typeof data !== 'object') continue;
 
-                if (!matchesSearch && data.Devices) {
-                    matchesSearch = Object.keys(data.Devices).some(d => d.toLowerCase().includes(search));
-                }
-                
-                if (search && !matchesSearch) continue;
-                
                 const statusObj = getKeyStatus(data);
                 if (currentFilter !== 'all' && currentFilter !== statusObj.id) continue;
+
+                if (search) {
+                    let match = keyId.toLowerCase().includes(search);
+                    if (!match && data.Remark && data.Remark.toLowerCase().includes(search)) match = true;
+                    if (!match && data.Devices && typeof data.Devices === 'object') {
+                        match = Object.entries(data.Devices).some(([dKey, dVal]) => {
+                            if (dKey.toLowerCase().includes(search)) return true;
+                            if (dVal && typeof dVal === 'object') {
+                                return (dVal.DeviceID && dVal.DeviceID.toLowerCase().includes(search)) ||
+                                       (dVal.Model && dVal.Model.toLowerCase().includes(search));
+                            }
+                            return false;
+                        });
+                    }
+                    if (!match) continue;
+                }
                 
                 filtered.push({ keyId, data, statusObj });
             }
 
             if (filtered.length === 0) {
-                list.innerHTML = `<div class="empty-state">NO RECORDS FOUND</div>`;
+                list.innerHTML = `<div class="empty-state">NO KEYS FOUND</div>`;
                 loadMoreBox.innerHTML = '';
                 return;
             }
@@ -1128,53 +985,61 @@
             for (let i = 0; i < sliceToRender.length; i++) {
                 const { keyId, data, statusObj } = sliceToRender[i];
                 const isExpanded = expandedKey === keyId;
+                const devCount = getDeviceCount(data);
                 
-                let devCount = 0;
                 let devListHtml = "";
-                if(data.Devices) {
+                if (devCount > 0) {
                     const devs = Object.entries(data.Devices);
-                    devCount = devs.length;
-                    devListHtml = `<div class="dev-list">`;
-                    devs.forEach(([dId, dVal]) => {
-                        let actualId = typeof dVal === 'object' && dVal.DeviceID ? dVal.DeviceID : dId;
+                    devListHtml = `<div class="dev-list">
+                        <div class="dev-list-header">
+                            <span>BOUND HARDWARE (${devCount}/${data.DeviceLimit || 1})</span>
+                            <span>MODEL</span>
+                        </div>`;
+                    devs.forEach(([dKey, dVal]) => {
+                        const actualId = (dVal && typeof dVal === 'object' && dVal.DeviceID) ? dVal.DeviceID : dKey;
+                        const model = (dVal && typeof dVal === 'object' && dVal.Model) ? dVal.Model : "Device";
                         devListHtml += `
                             <div class="dev-item">
-                                <div class="dev-hwid" onclick="copyToClipboard('${actualId}', event)">${actualId}</div>
+                                <span class="dev-hwid" onclick="copyToClipboard('${actualId}', event)">
+                                    <i class="fas fa-microchip" style="margin-right:6px; font-size:0.7rem; color:var(--text-muted);"></i>${actualId}
+                                </span>
+                                <span class="dev-model-tag"><i class="fas fa-mobile-alt" style="margin-right:4px;"></i>${model}</span>
                             </div>
                         `;
                     });
                     devListHtml += `</div>`;
                 } else {
-                    devListHtml = `<div style="text-align:center; color:var(--text-muted); font-size:0.75rem; padding:10px; border:1px dashed var(--border-light); border-radius:10px;">No devices bound</div>`;
+                    devListHtml = `<div style="text-align:center; color:var(--text-muted); font-size:0.72rem; padding:10px; border:1px dashed var(--border-light); border-radius:10px;">No devices bound (0/${data.DeviceLimit || 1})</div>`;
                 }
+
+                const remarkHtml = data.Remark ? `<div class="key-remark"><i class="fas fa-tag" style="margin-right:4px;"></i>${data.Remark}</div>` : '';
 
                 htmlBuffer += `
                     <div class="acc-card ${isExpanded ? 'expanded' : ''}">
                         <div class="acc-header" onclick="toggleAccordion('${keyId}')">
                             <div class="acc-header-left">
                                 <i class="fas fa-chevron-down acc-chevron"></i>
-                                <i class="fas fa-fingerprint key-icon"></i>
+                                <i class="fas fa-key key-icon"></i>
                                 <div class="key-title-wrapper">
-                                    <div class="key-title-row">
-                                        <span class="key-title">${keyId}</span>
-                                    </div>
+                                    <div class="key-title">${keyId}</div>
+                                    ${remarkHtml}
                                 </div>
                             </div>
-                            <span class="copy-badge" onclick="copyToClipboard('${keyId}', event)">COPY</span>
-                            <div class="status-badge ${statusObj.class}">
-                                <div class="badge-dot" style="background:${statusObj.color}"></div>
-                                ${statusObj.text}
+                            <div class="acc-header-right">
+                                <span class="copy-badge" onclick="copyToClipboard('${keyId}', event)">COPY</span>
+                                <div class="status-badge ${statusObj.class}">
+                                    <div class="badge-dot" style="background:${statusObj.color}"></div>
+                                    ${statusObj.text}
+                                </div>
                             </div>
                         </div>
-                        <div class="acc-body" style="max-height: ${isExpanded ? '500px' : '0'};">
+                        <div class="acc-body" style="max-height: ${isExpanded ? '550px' : '0'};">
                             <div class="acc-content">
                                 <div class="info-grid">
-                                    <div class="info-box"><span class="info-lbl">Device Limit</span><span class="info-val">${devCount} / ${data.DeviceLimit || 1}</span></div>
-                                    <div class="info-box"><span class="info-lbl">Duration</span><span class="info-val">${data.DurationDays} Days</span></div>
-                                </div>
-                                <div class="info-grid">
+                                    <div class="info-box"><span class="info-lbl">Devices Used</span><span class="info-val">${devCount} / ${data.DeviceLimit || 1}</span></div>
+                                    <div class="info-box"><span class="info-lbl">Duration</span><span class="info-val">${data.DurationDays || 0} Days</span></div>
                                     <div class="info-box"><span class="info-lbl">First Login</span><span class="info-val">${formatTime(data.FirstLoginTime)}</span></div>
-                                    <div class="info-box"><span class="info-lbl">Expiry Date</span><span class="info-val" style="color:${statusObj.color}">${calcExpiry(data.FirstLoginTime, data.DurationDays)}</span></div>
+                                    <div class="info-box"><span class="info-lbl">Expires On</span><span class="info-val" style="color:${statusObj.color}">${calcExpiry(data.FirstLoginTime, data.DurationDays)}</span></div>
                                 </div>
                                 ${devListHtml}
                                 <div class="action-row">
@@ -1194,7 +1059,7 @@
                 const remaining = filtered.length - visibleKeysCount;
                 loadMoreBox.innerHTML = `
                     <button class="load-more-btn" onclick="loadMoreKeys()">
-                        LOAD MORE (+${remaining > PAGE_CHUNK ? PAGE_CHUNK : remaining})
+                        LOAD MORE (+${remaining > PAGE_CHUNK ? PAGE_CHUNK : remaining} KEYS)
                     </button>
                 `;
             } else {
@@ -1207,92 +1072,282 @@
             renderKeys();
         }
 
-        /* --- BANS LOGIC --- */
-        function openBanModal() { document.getElementById('mod-ban-id').value = ''; document.getElementById('ban-modal').classList.add('active'); }
-        
-        async function saveBan() {
-            const hwid = document.getElementById('mod-ban-id').value.trim();
-            if (!hwid) return;
-            if (!DB.Banned_HWIDs) DB.Banned_HWIDs = {};
-            DB.Banned_HWIDs[hwid] = true; 
-            await syncNode(`Banned_HWIDs/${hwid}`, true);
-            closeModals(); renderAll(); showIsland("Hardware Banned", "success", "fa-skull");
-        }
-
-        async function unbanHWID(hwid) {
-            if (confirm(`Unban ${hwid}?`)) {
-                delete DB.Banned_HWIDs[hwid]; 
-                await syncNode(`Banned_HWIDs/${hwid}`, null);
-                renderAll(); showIsland("Unbanned successfully", "success");
-            }
-        }
-
-        function renderBans() {
-            const list = document.getElementById('bans-list');
-            const search = document.getElementById('search-bans').value.toLowerCase().trim();
-            const banObj = DB.Banned_HWIDs || {};
-            const entries = Object.entries(banObj);
+        /* --- BOUND DEVICES INSPECTOR TAB --- */
+        function renderBoundDevicesTab() {
+            const list = document.getElementById('bound-devs-list');
+            const search = document.getElementById('search-devs').value.toLowerCase().trim();
+            const rawKeys = Object.entries(DB.Keys || {});
             
             let html = "";
-            for (let i = 0; i < entries.length; i++) {
-                const [hwid, val] = entries[i];
-                if (search && !hwid.toLowerCase().includes(search)) continue;
+            let count = 0;
 
-                html += `
-                    <div class="ios-card" style="display:flex; justify-content:space-between; align-items:center; padding:18px;">
-                        <div style="font-family:'JetBrains Mono', monospace; font-weight:800; color:var(--danger); font-size:1.05rem;">
-                            <i class="fas fa-skull" style="margin-right:10px;"></i>${hwid}
-                        </div>
-                        <button class="sq-btn" style="background:var(--danger-dim); color:var(--danger); border:none;" onclick="unbanHWID('${hwid}')"><i class="fas fa-trash"></i></button>
-                    </div>`;
-            }
-            list.innerHTML = html || `<div class="empty-state">No Banned Devices</div>`;
-        }
-
-        /* --- TRIALS LOGIC --- */
-        function renderTrials() {
-            const list = document.getElementById('trials-list');
-            const search = document.getElementById('search-trials').value.toLowerCase().trim();
-            const trialsObj = DB.Trials || {};
-            const entries = Object.entries(trialsObj);
-
-            let html = "";
-            const now = Math.floor(Date.now() / 1000); 
-
-            for (let i = 0; i < entries.length; i++) {
-                const [hwid, data] = entries[i];
-                if (search && !hwid.toLowerCase().includes(search)) continue;
-                
-                const endTime = data.EndTime || 0;
-                let statusColor = "var(--success)";
-                let statusText = "Active Trial";
-                if(now > endTime) {
-                    statusColor = "var(--warning)";
-                    statusText = "Trial Expired";
-                }
-
-                html += `
-                    <div class="ios-card" style="padding:16px; border-left:4px solid ${statusColor};">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                            <div class="interactive-text" style="font-family:'JetBrains Mono', monospace; font-weight:800; color:#fff; font-size:1rem;" onclick="copyToClipboard('${hwid}', event)">
-                                ${hwid}
+            rawKeys.forEach(([keyId, data]) => {
+                if (!data || !data.Devices || typeof data.Devices !== 'object') return;
+                Object.entries(data.Devices).forEach(([dKey, dVal]) => {
+                    const devId = (dVal && typeof dVal === 'object' && dVal.DeviceID) ? dVal.DeviceID : dKey;
+                    const model = (dVal && typeof dVal === 'object' && dVal.Model) ? dVal.Model : "Unknown Model";
+                    
+                    if (search && !devId.toLowerCase().includes(search) && !model.toLowerCase().includes(search) && !keyId.toLowerCase().includes(search)) {
+                        return;
+                    }
+                    count++;
+                    html += `
+                        <div class="ios-card" style="padding:14px 16px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                            <div style="min-width:0; flex:1;">
+                                <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+                                    <span style="font-family:'JetBrains Mono', monospace; font-weight:800; color:var(--cyan); font-size:0.9rem; cursor:pointer;" onclick="copyToClipboard('${devId}', event)">${devId}</span>
+                                    <span class="dev-model-tag">${model}</span>
+                                </div>
+                                <div style="font-size:0.7rem; color:var(--text-muted); font-weight:700;">
+                                    Bound to Key: <span style="color:#fff; font-family:'JetBrains Mono', monospace;">${keyId}</span>
+                                </div>
                             </div>
-                            <button class="sq-btn" style="background:var(--danger-dim); color:var(--danger); border:none; width:40px; height:40px;" onclick="revokeTrial('${hwid}')"><i class="fas fa-trash"></i></button>
+                            <button class="sq-btn" style="background:var(--danger-dim); color:var(--danger); border:none; width:38px; height:38px;" onclick="removeSingleDevice('${keyId}', '${dKey}')" title="Unbind Device">
+                                <i class="fas fa-unlink"></i>
+                            </button>
                         </div>
-                        <div style="font-size:0.75rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:1px; color:${statusColor};">
-                            ${statusText}
-                        </div>
-                    </div>`;
-            }
-            list.innerHTML = html || `<div class="empty-state">No Active Trials</div>`;
+                    `;
+                });
+            });
+
+            list.innerHTML = count > 0 ? html : `<div class="empty-state">NO BOUND DEVICES FOUND</div>`;
         }
 
-        async function revokeTrial(hwid) {
-            if (confirm(`Revoke Trial for ${hwid}?`)) {
-                delete DB.Trials[hwid]; 
-                await syncNode(`Trials/${hwid}`, null);
-                renderAll(); showIsland("Trial Revoked", "success");
+        async function removeSingleDevice(keyId, devKey) {
+            if (!confirm(`Unbind device ${devKey} from ${keyId}?`)) return;
+            if (DB.Keys[keyId] && DB.Keys[keyId].Devices) {
+                delete DB.Keys[keyId].Devices[devKey];
+                await syncNode(`Keys/${keyId}/Devices/${devKey}`, null);
+                renderAll();
+                showIsland("Device Unbound", "success", "fa-unlink");
             }
+        }
+
+        /* --- KEY CRUD OPERATIONS --- */
+        function openKeyModal() {
+            document.getElementById('mod-key-id').value = "DPMODS-VIP-";
+            document.getElementById('mod-key-days').value = 30;
+            document.getElementById('mod-key-limit').value = 1;
+            document.getElementById('mod-key-remark').value = "";
+            document.getElementById('chk-bulk').checked = false;
+            document.getElementById('bulk-qty-row').style.display = 'none';
+            document.getElementById('single-key-row').style.display = 'block';
+            document.getElementById('key-modal').classList.add('active');
+        }
+
+        function randomKey() { 
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let res = '';
+            for(let i=0; i<6; i++) res += chars.charAt(Math.floor(Math.random() * chars.length));
+            document.getElementById('mod-key-id').value = 'DPMODS-' + res; 
+        }
+
+        async function saveKey() {
+            const isBulk = document.getElementById('chk-bulk').checked;
+            const limit = parseInt(document.getElementById('mod-key-limit').value) || 1;
+            const days = parseInt(document.getElementById('mod-key-days').value) || 30;
+            const remark = document.getElementById('mod-key-remark').value.trim();
+
+            let newKeysObj = {};
+            if (isBulk) {
+                const qty = parseInt(document.getElementById('mod-bulk-qty').value) || 10;
+                for (let i = 0; i < qty; i++) {
+                    let newId;
+                    do { 
+                        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                        let res = '';
+                        for(let j=0; j<6; j++) res += chars.charAt(Math.floor(Math.random() * chars.length));
+                        newId = `DPMODS-${days}D-` + res; 
+                    } while (DB.Keys[newId] || newKeysObj[newId]); 
+                    
+                    newKeysObj[newId] = { Banned: false, DeviceLimit: limit, DurationDays: days, FirstLoginTime: 0 };
+                    if (remark) newKeysObj[newId].Remark = remark;
+                    DB.Keys[newId] = newKeysObj[newId];
+                }
+            } else {
+                const keyId = document.getElementById('mod-key-id').value.trim();
+                if (!keyId) return showIsland("Enter a Key ID!", "error");
+                if (DB.Keys[keyId]) return showIsland("Key already exists!", "error");
+                
+                newKeysObj[keyId] = { Banned: false, DeviceLimit: limit, DurationDays: days, FirstLoginTime: 0 };
+                if (remark) newKeysObj[keyId].Remark = remark;
+                DB.Keys[keyId] = newKeysObj[keyId];
+            }
+
+            try {
+                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PATCH', body: JSON.stringify(newKeysObj) });
+                lastSyncedKeysHash = JSON.stringify(DB.Keys);
+                showIsland("Key(s) Generated!", "success", "fa-key");
+            } catch (e) {}
+            
+            closeModals(); 
+            renderAll();
+        }
+
+        function addDeviceInputToEdit(devId = "", model = "") {
+            const devList = document.getElementById('edit-dev-list');
+            const noMsg = document.getElementById('no-dev-msg');
+            if (noMsg) noMsg.remove();
+
+            const row = document.createElement('div');
+            row.className = "edit-dev-row";
+            row.style.cssText = "display:flex; gap:6px; align-items:center;";
+            row.innerHTML = `
+                <input type="text" class="edit-dev-id" value="${devId}" placeholder="Device ID (HWID)" style="height:42px; font-family:'JetBrains Mono', monospace; flex:1.3; background:#070709; border:1px solid var(--border-light); border-radius:10px; padding:0 12px; color:#fff; font-size:0.8rem; outline:none;">
+                <input type="text" class="edit-dev-model" value="${model}" placeholder="Model (e.g. CPH2723)" style="height:42px; flex:1; background:#070709; border:1px solid var(--border-light); border-radius:10px; padding:0 12px; color:var(--cyan); font-size:0.8rem; outline:none;">
+                <button class="sq-btn" style="background:var(--danger-dim); color:var(--danger); border:none; width:42px; height:42px;" onclick="this.parentElement.remove()"><i class="fas fa-times"></i></button>
+            `;
+            devList.appendChild(row);
+        }
+
+        function openEditKeyModal(keyId, event) {
+            if(event) event.stopPropagation();
+            const data = DB.Keys[keyId] || {};
+            document.getElementById('edit-key-id').value = keyId;
+            document.getElementById('edit-key-limit').value = data.DeviceLimit || 1;
+            document.getElementById('edit-key-days').value = data.DurationDays || 30;
+            document.getElementById('edit-key-time').value = data.FirstLoginTime || 0;
+            document.getElementById('edit-key-ban').checked = data.Banned === true;
+            document.getElementById('edit-key-remark').value = data.Remark || "";
+
+            const devList = document.getElementById('edit-dev-list');
+            devList.innerHTML = '';
+            
+            if (data.Devices && typeof data.Devices === 'object' && Object.keys(data.Devices).length > 0) {
+                Object.entries(data.Devices).forEach(([dKey, dVal]) => {
+                    const id = (dVal && typeof dVal === 'object' && dVal.DeviceID) ? dVal.DeviceID : dKey;
+                    const mdl = (dVal && typeof dVal === 'object' && dVal.Model) ? dVal.Model : "";
+                    addDeviceInputToEdit(id, mdl);
+                });
+            } else {
+                devList.innerHTML = `<div id="no-dev-msg" style="text-align:center; color:var(--text-muted); font-size:0.72rem; padding:10px; border:1px dashed var(--border-light); border-radius:10px;">No devices bound.</div>`;
+            }
+
+            document.getElementById('edit-key-modal').classList.add('active');
+        }
+
+        async function saveEditedKey() {
+            const keyId = document.getElementById('edit-key-id').value;
+            const limit = parseInt(document.getElementById('edit-key-limit').value) || 1;
+            const days = parseInt(document.getElementById('edit-key-days').value) || 30;
+            const time = parseInt(document.getElementById('edit-key-time').value) || 0;
+            const isBan = document.getElementById('edit-key-ban').checked;
+            const remark = document.getElementById('edit-key-remark').value.trim();
+
+            const devRows = document.querySelectorAll('.edit-dev-row');
+            let newDevices = {};
+            let count = 0;
+
+            devRows.forEach(r => {
+                const idVal = r.querySelector('.edit-dev-id').value.trim();
+                const mdlVal = r.querySelector('.edit-dev-model').value.trim() || "Unknown";
+                if (idVal) {
+                    newDevices[idVal] = {
+                        DeviceID: idVal,
+                        Model: mdlVal
+                    };
+                    count++;
+                }
+            });
+
+            const updatedKeyObj = {
+                Banned: isBan,
+                DeviceLimit: limit,
+                DurationDays: days,
+                FirstLoginTime: time
+            };
+
+            if (count > 0) updatedKeyObj.Devices = newDevices;
+            if (remark) updatedKeyObj.Remark = remark;
+
+            DB.Keys[keyId] = updatedKeyObj;
+            await syncNode(`Keys/${keyId}`, updatedKeyObj);
+            lastSyncedKeysHash = JSON.stringify(DB.Keys);
+
+            closeModals(); 
+            renderAll();
+            showIsland("Key Updated!", "success", "fa-pen");
+        }
+
+        async function deleteKey(keyId, event) {
+            if(event) event.stopPropagation();
+            if (confirm(`Delete Key ${keyId}?`)) {
+                delete DB.Keys[keyId]; 
+                await syncNode(`Keys/${keyId}`, null);
+                lastSyncedKeysHash = JSON.stringify(DB.Keys);
+                renderAll(); 
+                showIsland("Key Deleted", "success", "fa-trash");
+            }
+        }
+
+        async function resetKey(keyId, event) {
+            if(event) event.stopPropagation();
+            if (confirm(`Reset & Unbind Key ${keyId}? (Clears devices and timer)`)) {
+                DB.Keys[keyId].FirstLoginTime = 0;
+                delete DB.Keys[keyId].Devices;
+                
+                await fetch(`${DB_URL}/Keys/${keyId}.json?auth=${DB_SECRET}`, {
+                    method: 'PATCH',
+                    body: JSON.stringify({ FirstLoginTime: 0, Devices: null })
+                });
+                lastSyncedKeysHash = JSON.stringify(DB.Keys);
+                renderAll(); 
+                showIsland("Key Reset to Fresh", "success", "fa-undo");
+            }
+        }
+
+        /* --- BULK ACTIONS --- */
+        async function bulkDeleteUnused() {
+            if(!confirm("Delete ALL UNUSED keys?")) return;
+            const updates = {};
+            let count = 0;
+            Object.entries(DB.Keys || {}).forEach(([k, v]) => {
+                if (getKeyStatus(v).id === 'unused') {
+                    updates[k] = null;
+                    delete DB.Keys[k];
+                    count++;
+                }
+            });
+            if(count > 0) {
+                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PATCH', body: JSON.stringify(updates) });
+                lastSyncedKeysHash = JSON.stringify(DB.Keys);
+                renderAll(); showIsland(`Deleted ${count} unused keys`, "success");
+            } else showIsland("No unused keys found", "error");
+        }
+
+        async function bulkDeleteExpired() {
+            if(!confirm("Delete ALL EXPIRED keys?")) return;
+            const updates = {};
+            let count = 0;
+            Object.entries(DB.Keys || {}).forEach(([k, v]) => {
+                if (getKeyStatus(v).id === 'expired') {
+                    updates[k] = null;
+                    delete DB.Keys[k];
+                    count++;
+                }
+            });
+            if(count > 0) {
+                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PATCH', body: JSON.stringify(updates) });
+                lastSyncedKeysHash = JSON.stringify(DB.Keys);
+                renderAll(); showIsland(`Deleted ${count} expired keys`, "success");
+            } else showIsland("No expired keys found", "error");
+        }
+
+        async function bulkUnbindAll() {
+            if(!confirm("UNBIND ALL devices and reset timers on ALL keys?")) return;
+            let count = 0;
+            for (let k in DB.Keys) {
+                if (DB.Keys[k].Devices || DB.Keys[k].FirstLoginTime > 0) {
+                    delete DB.Keys[k].Devices;
+                    DB.Keys[k].FirstLoginTime = 0;
+                    count++;
+                }
+            }
+            if(count > 0) {
+                await fetch(`${DB_URL}/Keys.json?auth=${DB_SECRET}`, { method: 'PUT', body: JSON.stringify(DB.Keys) });
+                lastSyncedKeysHash = JSON.stringify(DB.Keys);
+                renderAll(); showIsland(`Reset & Unbound ${count} keys`, "success");
+            } else showIsland("No active/bound keys found", "error");
         }
 
         let islandTimeout;
